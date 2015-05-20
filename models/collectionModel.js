@@ -29,16 +29,16 @@ var collectionNames = function(db, callback) {
   db.collectionNames(function(err, names) {
     assert.equal(null, err);
     assert.ok(names.length > 0);
-    var names = names.map(function(n) {
+    var collectionNamesArr = names.map(function(n) {
       return n.name.slice(db.databaseName.length+1);
     });
-    DatabaseModel.findOneAndUpdate( 
-      { mongodbName: db.databaseName }, 
-      { collectionNames: names.slice(1)},
+    DatabaseModel.findOneAndUpdate(
+      { mongodbName: db.databaseName },
+      { collectionNames: collectionNamesArr.slice(1)},
       function(err, doc) {
         console.log("findAndUpdate doc: ", doc);
       });
-    callback(null, db, names);
+    callback(null, db, collectionNamesArr);
   });
 };
 
@@ -51,7 +51,7 @@ var collectionModel = module.exports = {
   collectionNames: collectionNames,
 
   activeDbCollections: function(dbname, dbhost, dbport, username, password, cb) {
-    
+
     async.waterfall([
 
       function(callback) {

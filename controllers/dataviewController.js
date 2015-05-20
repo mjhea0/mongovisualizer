@@ -11,8 +11,8 @@ module.exports = {
       res.render('dataview', {
         collectionNames: doc.collectionNames
       });
-    })
-    
+    });
+
   },
 
   getCollectionData: function(req, res) {
@@ -22,7 +22,7 @@ module.exports = {
       console.log('keys back in Controller', keys);
       res.send(keys);
     });
-    
+
     // DataviewModel.uniqueKeys(req.body, function(err, doc) {
     //   res.send(doc);
     // });
